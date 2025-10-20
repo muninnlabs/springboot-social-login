@@ -1,0 +1,12 @@
+# ignore local environment file containing secrets
+local.env
+
+# Java / maven / gradle / IDE
+target/
+*.class
+*.log
+/.idea
+*.iml
+.vscode/
+.gradle/
+build/
