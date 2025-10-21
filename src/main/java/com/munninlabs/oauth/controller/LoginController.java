@@ -2,31 +2,31 @@ package com.munninlabs.oauth.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-@Controller
+@RestController
 public class LoginController {
-    // Public Home Page - will show a link to /oauth2/authorization/google
-    @GetMapping("/")
+
+    @RequestMapping("/")
     public String home() {
-        return "index"; // Corresponds to index.html (optional Thymeleaf template)
+        return "Welcome!";
     }
 
-    // Secured page - only accessible after successful login
-    @GetMapping("/secured")
-    public String secured(Model model, @AuthenticationPrincipal OAuth2User oauth2User) {
-        // Access user attributes from the OAuth2User object
-        String name = oauth2User.getAttribute("name");
-        String email = oauth2User.getAttribute("email");
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        return user;
+    }
 
-        model.addAttribute("name", name);
-        model.addAttribute("email", email);
-        return "secured"; // Corresponds to secured.html (optional Thymeleaf template)
+    @RequestMapping("/user-details")
+    public String getUserDetails(@AuthenticationPrincipal OAuth2User oauth2User) {
+        if (oauth2User != null) {
+            // Example of accessing attributes from an OAuth2 user
+            return "Hello, " + oauth2User.getAttribute("name") + "! Your email is: " + oauth2User.getAttribute("email");
+        }
+        return "User is authenticated, but not via OAuth2 (or details are unavailable).";
     }
 
 }
