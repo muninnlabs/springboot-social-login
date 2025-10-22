@@ -27,4 +27,9 @@ public class ViewController {
         return "redirect:/"; // Redirect or show a different error page
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "custom_login";
+    }
+
 }
