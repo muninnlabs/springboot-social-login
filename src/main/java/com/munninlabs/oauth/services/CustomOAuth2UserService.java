@@ -38,10 +38,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         // 2. Extract provider details
         String registrationId = userRequest.getClientRegistration().getRegistrationId(); // e.g., "google"
-
         // 3. Persist user data using the custom service
         User persistedUser = userService.saveOrUpdateUser(oauth2User, registrationId);
-
         // 4. Create a new Principal (DefaultOAuth2User) that includes the persisted user's ID
         // The persisted user's ID is used as the 'name' (Principal ID) for clarity.
         String userNameAttributeName = userRequest.getClientRegistration()
